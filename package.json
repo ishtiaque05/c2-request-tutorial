@@ -1,0 +1,25 @@
+{
+    "name": "api_tutorial",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/chai": "4.0.8",
+        "@types/mocha": "2.2.46",
+        "@types/core-js": "^0.9.35",
+        "@types/request-promise-native": "^1.0.2",
+        "chai": "4.1.2",
+        "mocha": "4.1.0",
+        "ts-node": "4.1.0",
+        "typescript": "3.7.4",
+        "chai-as-promised": "^7.1.1",
+        "request": "^2.79.0",
+        "request-promise-native": "^1.0.3"
+    },
+    "scripts": {
+        "build": "tsc",
+        "test": "mocha --require ts-node/register test/*.spec.ts --timeout 10000"
+    }
+}
