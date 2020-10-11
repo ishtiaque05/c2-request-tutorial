@@ -27,13 +27,16 @@ export default class MathApi {
      * i.e., ["1+1", "2*2"] and returns an array of result
      */
     public evaluateAllExpressions(expressions: string[]): Promise<number[]> {
-        return Promise.reject("Not implemented");
+        const resultArray: Array<Promise<number>> = [];
+        for (const expression of expressions) {
+            resultArray.push(this.evaluateMathExpression(expression));
+        }
+        return Promise.all(resultArray)
     }
 
     /**
-     *
-     * @param expression: string e.g, "1+1"
-     * Takes an expression and send a request using
+     * 
+     * Takes an expression e.g., '1+1' and send a request using
      * 'request' package. This method rejects if an error occurs
      * or the response "statusCode" is not 200
      * 
@@ -41,6 +44,19 @@ export default class MathApi {
      * expression
      */
     public evaluateMathExpression(expression: string): Promise<number> {
-        return Promise.reject("Not Implemented");
+        return new Promise ((resolve, reject) => {
+            request(this.makeRequestUrl(expression), (error, response, body) => {
+                if (error) {
+                    // This error is for if the request completely failed, for instance if it wasn't given a URL
+                    return reject(error);
+                } else if (response && !(response.statusCode === 200)) {
+                    // This case is if the request was sent, but something went wrong
+                    return reject("Response was not successful!");
+                } else {
+                    // We got the response back, and the value we want is in the body. So we cast it, then resolve our promise with it
+                    return resolve(Number(body));
+                }
+            });
+        }); 
     }
 }
